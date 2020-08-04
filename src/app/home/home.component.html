@@ -1,0 +1,93 @@
+<nav class="navbar" style="background-color: #2a3c50; padding: 0.75rem 1rem 0.75rem; background-size: contain;">
+    <img src="./assets/logo.png" alt="California Courts" style="width: 242px; height: 40px;" />
+</nav>
+
+<body>
+    <br>
+
+     <!-- New Code Starts-->
+
+  <br>
+  <div class="row container">
+    <div class="col-md-9">
+  <p style="font-size: 30px;color: #2A3C50;" >Your Citations</p>
+</div>
+<div class="col-md-1" style="text-align: end;">
+  <span class="material-icons">
+    person
+  </span>
+  </div>
+  <div class="col-md-2">
+  {{this.officer.OfficerName}}<br>
+  {{this.officer.Badge}}<br>
+  {{this.officer.OfficerID}}<br>
+</div>
+  </div>  
+<br>
+<div class="container">
+<p>Your userid contains your name and badge number.  We will use this information for a citation search. Please confirm information for agency and county for citation search and user profile:</p>
+
+<form *ngIf="countyForm" [formGroup]="countyForm" class="normal-form" (ngSubmit)="countyDetails()">
+<mat-radio-group aria-label="Select an option"
+formControlName="county"
+>
+  <mat-radio-button *ngFor = "let c of this.county.countyname" [value] = "c">{{c}}</mat-radio-button>
+</mat-radio-group>
+<br><br>
+<div align="center">
+<button mat-raised-button>Confirm</button>
+</div>
+</form>
+</div>
+
+<br>
+
+<div class="container">
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Citation Column -->
+    <ng-container matColumnDef="citation">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Citation # </th>
+      <td mat-cell *matCellDef="let row">  </td>
+    </ng-container>
+
+    <!-- Full Name Column -->
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </th>
+      <td mat-cell *matCellDef="let row"> </td>
+    </ng-container>
+
+    <!-- County Column -->
+    <ng-container matColumnDef="county">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> County </th>
+      <td mat-cell *matCellDef="let row">  </td>
+    </ng-container>
+
+    <!-- Violation Date Column -->
+    <ng-container matColumnDef="violationDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Violation Date </th>
+      <td mat-cell *matCellDef="let row" >  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </th>
+      <td mat-cell *matCellDef="let row">  </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+</div>
+
+  <!-- New Code Ends-->
+
+</body>
+<footer class="page-footer">
+    <p style="text-align: center; color: white; font-weight: 600;">&copy; 2020 Judicial Council of California</p>
+</footer>

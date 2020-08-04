@@ -1,0 +1,593 @@
+<nav class="navbar" style="background-color: #2a3c50; padding: 0.75rem 1rem 0.75rem; background-size: contain;">
+  <img src="./assets/logo.png" alt="California Courts" style="width: 242px; height: 40px;" />
+</nav>
+  <!-- New Code Starts-->
+
+  <br>
+  <div class="row container">
+    <div class="col-md-9">
+  <p style="font-size: 30px;color: #2A3C50;" >Your Citations</p>
+</div>
+<div class="col-md-1" style="text-align: end;">
+  <span class="material-icons">
+    person
+  </span>
+  </div>
+  <div class="col-md-2">
+  {{this.officer.OfficerName}}<br>
+  {{this.officer.Badge}}<br>
+  {{this.officer.OfficerID}}<br>
+</div>
+  </div>  
+<br>
+<div class="container">
+<p>Your userid contains your name and badge number.  We will use this information for a citation search. Please confirm information for agency and county for citation search and user profile:</p>
+
+<form *ngIf="countyForm" [formGroup]="countyForm" class="normal-form" (ngSubmit)="countyDetails()">
+<mat-radio-group aria-label="Select an option"
+formControlName="county"
+>
+  <mat-radio-button *ngFor = "let c of this.county.countyname" [value] = "c">{{c}}</mat-radio-button>
+</mat-radio-group>
+<br><br>
+<div align="center">
+<button mat-raised-button>Confirm</button>
+</div>
+</form>
+</div>
+
+<br>
+
+<div class="container">
+<!-- <mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder=" " #input>
+</mat-form-field> -->
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Citation Column -->
+    <ng-container matColumnDef="citation">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Citation # </th>
+      <td mat-cell *matCellDef="let row">  </td>
+    </ng-container>
+
+    <!-- Full Name Column -->
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </th>
+      <td mat-cell *matCellDef="let row"> </td>
+    </ng-container>
+
+    <!-- County Column -->
+    <ng-container matColumnDef="county">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> County </th>
+      <td mat-cell *matCellDef="let row">  </td>
+    </ng-container>
+
+    <!-- Violation Date Column -->
+    <ng-container matColumnDef="violationDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Violation Date </th>
+      <td mat-cell *matCellDef="let row" >  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </th>
+      <td mat-cell *matCellDef="let row">  </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+</div>
+
+  <!-- New Code Ends-->
+<br>
+
+<body>
+  <div class="container">
+    <p class="mat-display-1">Officer's Declaration</p>
+    <p class="mat-title">(Trail by Written Declaration - Vehicle Code, 40902)</p>
+
+
+    <form *ngIf="userForm" [formGroup]="userForm" class="normal-form" (ngSubmit)="submit(userForm.value)">
+
+      <!-- <mat-tab-group #tabRef [(selectedIndex)]="selectedIndex" (selectedTabChange)="logChange(tabRef.selectedIndex)" > -->
+
+      <!-- Mat tab 1 content starts here -->
+
+      <!-- <mat-tab label="Tab1"> -->
+      <br>
+      <mat-form-field appearance="outline">
+        <mat-label>Name of the Court</mat-label>
+        <input matInput formControlName="court" readonly>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Street Address</mat-label>
+        <input matInput formControlName="sAddress" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Mailing Address</mat-label>
+        <input matInput formControlName="mAddress" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>State</mat-label>
+        <input matInput formControlName="state" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Zip</mat-label>
+        <input matInput formControlName="zip" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>State</mat-label>
+        <input matInput formControlName="state" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Branch Name</mat-label>
+        <input matInput formControlName="bName" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Telephone</mat-label>
+        <input type="tel" matInput formControlName="telephone" readonly>
+      </mat-form-field>
+
+      <p class="pstyle">PEOPLE OF STATE OF CALIFORNIA</p>
+
+      <P class="pstyle">vs.</P>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Defendent</mat-label>
+        <input matInput formControlName="defendent">
+      </mat-form-field>
+
+      <hr>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Return Date</mat-label>
+        <!-- <input matInput type="date" formControlName="rDate" readonly> -->
+        <input matInput [matDatepicker]="myDatePicker" formControlName="rDate">
+        <mat-datepicker-toggle [for]="myDatePicker" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #myDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Arresting Officer Name</mat-label>
+        <input matInput formControlName="aoName" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Arresting Officer ID No.</mat-label>
+        <input matInput formControlName="aoID" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Citation Number</mat-label>
+        <input matInput formControlName="cNum" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Date Issued</mat-label>
+        <!-- <input matInput type="date" formControlName="dIssued"> -->
+        <input matInput [matDatepicker]="myDatePicker1" formControlName="dIssued">
+        <mat-datepicker-toggle [for]="myDatePicker1" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #myDatePicker1></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Agency Number</mat-label>
+        <input matInput formControlName="aNum" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Office</mat-label>
+        <input matInput formControlName="office" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Case Number</mat-label>
+        <input matInput formControlName="caNum" readonly>
+      </mat-form-field>
+
+      <!-- <div align="end">
+        <mat-chip selected (click)="continue()">&nbsp;Continue&nbsp;</mat-chip>
+    </div>
+    </mat-tab> -->
+
+      <!-- Mat tab 1 content ends here -->
+
+      <!-- Mat Tab 2 content starts here -->
+
+      <!-- <mat-tab label="Tab2">
+        <br>
+        <mat-chip selected (click)="previous()">&nbsp;Back&nbsp;</mat-chip> -->
+      <hr>
+      <br><br>
+      <p style="text-align: left;">
+        INSTRUCTIONS: The defendant in the case listed above has opted for trial by written declaration pursuant to
+        Vehicle Code section 40902. The officer named above shall check all statements that apply, date and sign by the
+        return date stated above.
+      </p>
+
+      <p>
+        1. Except as expressly stated below, I have personal knowledge of the facts stated herein. <br>The events
+        occurred in the County of:
+        <mat-form-field appearance="standard" class="resize">
+          <input matInput formControlName="name">
+        </mat-form-field>
+        at about the date, time, and location stated in the citation.</p>
+
+      a: &nbsp;<mat-checkbox color="primary" formControlName="isPeaceOfficerOnDuty"
+        (change)="onChange_a($event,'At the time of the citation I was a peace officer on-duty')">At the time of the
+        citation I was a peace officer on-duty</mat-checkbox><br>
+
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
+        [disabled]="checkboxValue_a" formControlName="isForExclusivePurposeOfTrafficEnforcement">for the exclusive or
+        main purpose of traffic enforcement</mat-checkbox>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
+        [disabled]="checkboxValue_a" formControlName="isWearingUniform">and I was wearing a uniform as required by the
+        Vehicle section 40800.</mat-checkbox><br><br>
+
+      b: <mat-checkbox color="primary" formControlName="isOffenseCommittedInPresence">The offense(s) were not committed
+        in my presence.</mat-checkbox><br><br>
+
+      c: <mat-checkbox color="primary" formControlName="c"
+        (change)="onChange_c($event,'Any statement(s) made by the defendant were voluntary recorded,')">Any statement(s)
+        made by the defendant were voluntary recorded,</mat-checkbox>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
+        formControlName="isDefendantStatementVerbatim" [disabled]="checkboxValue_c">verbatim and is/are reasonably
+        complete and accurate in substance.</mat-checkbox><br>
+      <br>
+
+      d: <mat-checkbox color="primary" formControlName="isVehicleSafetyViolated">Safety is an element of the violation
+        alleged. In my opinion, the defendant’s operation of the vehicle was unsafe.</mat-checkbox><br><br>
+
+      e: <mat-checkbox color="primary" formControlName="isEquipmentProperlyMaintained">Any equipment used by me to
+        gather evidence in support of this violation was properly maintained, in good working order, and I have been
+        trained in its used.</mat-checkbox><br><br>
+
+      f: <mat-checkbox color="primary" formControlName="isTrafficSignSignalDeviceProperlyVisible">Any traffic sign,
+        signal, or device mentioned was official and properly located, maintained, in good working order, and clearly
+        visible to a driver of a vehicle controlled, governed, or affected by such sign, signal, or device.
+      </mat-checkbox><br><br>
+
+      g: <mat-checkbox color="primary" formControlName="isDiagramSubmittedAccurate">Any diagram(s) submitted is/are not
+        exact or to scale, but is/are reasonably complete, accurate, and fairly depict(s) the location, situation, and
+        events describe.</mat-checkbox><br><br>
+
+      h: <mat-checkbox color="primary" formControlName="isSpeedSignificantFactor">
+        <div class="inline">
+          Speed supported by the patrol vehicle’s speedometer was a significant factor. Pursuant to department policy,
+          the patrol vehicle used in connection with
+
+          <mat-form-field appearance="standard" class="resize">
+            <input matInput type="date" formControlName="vehicleCalibrationDate">
+            <!-- <mat-datepicker-toggle [for]="myDatePicker01" matSuffix></mat-datepicker-toggle>
+              <mat-datepicker #myDatePicker01></mat-datepicker> -->
+          </mat-form-field>
+
+          this citation was officially calibrated on (date):
+
+          The result was (specify):
+          <mat-form-field appearance="standard" class="resize">
+            <input matInput formControlName="vehicleCalibrationResult">
+          </mat-form-field>
+        </div>
+      </mat-checkbox><br>
+
+      i: <mat-checkbox color="primary" formControlName="isCalibrationConsideredDuringSpeedDetermination"
+        (change)="onChange_i($event,'')">The
+        calibration was identified by me in determining defendant’s speed.</mat-checkbox><br>
+
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
+        [disabled]="checkboxValue_i" formControlName="isDefendantIdentifiedByDL">Driver’s License</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <mat-checkbox color="primary" [disabled]="checkboxValue_i" formControlName="isDefendantIdentifiedByOther">Or
+        Other(specify)
+        <mat-form-field appearance="standard" class="resize">
+          <input matInput formControlName="DefendantIdentifiedByOtherDescription" [disabled]="checkboxValue_i">
+        </mat-form-field>
+      </mat-checkbox>
+      <!-- <div align="end">
+          <mat-chip selected (click)="continue()">&nbsp;Continue&nbsp;</mat-chip>
+      </div>
+    </mat-tab> -->
+
+      <!-- Mat tab 2 content ends here -->
+
+      <!-- Mat Tab section 3 content starts here-->
+
+      <!-- <mat-tab label="Tab3">
+      <br>
+      <mat-chip selected (click)="previous()">&nbsp;Back&nbsp;</mat-chip> -->
+
+      <br>
+      <br>
+      2: <mat-checkbox color="primary" (change)="onChange_2($event, '')">THE METHOD(S) USED TO DETERMINE THE SPEED OF
+        THE INVOLVED VEHICLE WAS/WERE:</mat-checkbox><br>
+
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
+        [disabled]="checkboxValue_2" formControlName="isOdometerUsed">Odometer</mat-checkbox>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
+        [disabled]="checkboxValue_2" formControlName="isVisualEstimationUsed">Visual estimation</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
+        [disabled]="checkboxValue_2" formControlName="isPacingUsed">Pacing</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
+        [disabled]="checkboxValue_2" formControlName="isRadarUsed">Radar</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
+        [disabled]="checkboxValue_2" formControlName="isLaserUsed">Laser</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
+        [disabled]="checkboxValue_2" formControlName="isAircraftUsed">Aircraft</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
+        [disabled]="checkboxValue_2" formControlName="isOtherMethodUsed">Or Other(specify)
+        <mat-form-field appearance="standard" class="resize">
+          <input matInput formControlName="OtherMethodDescription" [disabled]="checkboxValue_2">
+        </mat-form-field>
+      </mat-checkbox><br>
+
+      <br>
+      3: <mat-checkbox color="primary" formControlName="isETSurveyNotRequired">Engineering and traffic survey (ETS) not
+        required per Vehicle Code section 40802, subdivision (b).</mat-checkbox><br><br>
+
+      4: <mat-checkbox color="primary" (change)="onChange_4($event, '')">ETS completed within five (5) years prior to
+        date of alleged violation.</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a: <mat-checkbox color="primary"
+        [disabled]="checkboxValue_4">ETS attached.</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b: <mat-checkbox color="primary"
+        [disabled]="checkboxValue_4">ETS on file with the court.</mat-checkbox><br><br>
+
+      <!-- File upload code -->
+
+      <p style="text-align: center;font-weight: 600;">Please upload file here</p>
+
+      <div class="container_file" appDnd (fileDropped)="onFileDropped1($event)">
+        <input class="input_file" type="file" #fileDropRef id="fileDropRef" multiple
+          (change)="fileBrowseHandler1($event.target.files)" />
+        <!-- upload icon here -->
+        <mat-icon>cloud_upload</mat-icon>
+        <h3>Drag and drop file here</h3>
+        <h3>or</h3>
+        <label for="fileDropRef">Browse for file</label>
+      </div>
+      <div class="files-list">
+        <div class="single-file" *ngFor="let file of files1; let i = index">
+          <div class="file-icon" style="width: 50px">
+            <!-- image icon here-->
+            <mat-icon>image</mat-icon>
+          </div>
+          <div class="info">
+            <h4 class="name">
+              {{ file?.name }}
+            </h4>
+            <!-- <p class="size">
+               {{ formatBytes(file?.size) }}
+             </p> -->
+            <!-- <app-progress [progress]="file?.progress"></app-progress> -->
+          </div>
+
+          <div class="delete" (click)="deleteFile1(i)">
+            <mat-icon>delete</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- End of file upload code --><br><br>
+
+      5: <mat-checkbox color="primary" formControlName="isETSCompletedWithinFiveAndSevenYears"
+        (change)="onChange_5($event, '')">ETS completed within five (5) and seven (7) years prior to date of alleged
+        violation.</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a: <mat-checkbox color="primary"
+        formControlName="isETSattached" [disabled]="checkboxValue_5">ETS attached.</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b: <mat-checkbox color="primary"
+        [disabled]="checkboxValue_5" formControlName="isETSOnFileWithCourt">ETS on file with the court.</mat-checkbox>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c: <mat-checkbox color="primary"
+        [disabled]="checkboxValue_5" formControlName="isOfficerCompletedRadarOperatorCourse">Arresting/citing officer
+        has successfully completed a radar operator courts of not less than 24 hours approved and certified by the
+        Commission on Peace Officer Standards and Training (POST).</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d: <mat-checkbox color="primary"
+        [disabled]="checkboxValue_5" formControlName="isOfficerCompletedLaserOperatorCourse">Laser or other electronic
+        device was used to measure speed. Arresting/citing officer successfully completed an additional training course
+        of not less than two hours approved and certified by POST.</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e: <mat-checkbox color="primary"
+        [disabled]="checkboxValue_5" formControlName="isSpeedMeasuringDeviceUsed">The speed measuring device used to
+        measure the speed of defendant (Serial No:)
+        <mat-form-field appearance="standard" class="resize">
+          <input matInput formControlName="speedMeasuringDeviceSerialNumber">
+        </mat-form-field>
+      </mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f: <mat-checkbox color="primary"
+        [disabled]="checkboxValue_5" formControlName="isEquipmentAccuracyCheckConducted">Equipment accuracy check
+        conducted:
+      </mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-form-field
+        appearance="standard" class="dpick">
+        <mat-label>On Date/Time</mat-label>
+        <input matInput type="datetime-local" readonly formControlName="EquipmentAccuracyCheckConductedOn">
+      </mat-form-field><br>
+
+      <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+      <!-- <mat-form-field appearance="standard" class="dpick">
+          <mat-label>at Time</mat-label>
+          <input matInput formControlName="atTime" [disabled]="checkboxValue_5">
+        </mat-form-field>
+        <br> -->
+
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <mat-form-field appearance="standard" class="dpick">
+        <mat-label>again on Date/Time</mat-label>
+        <input matInput type="datetime-local" formControlName="EquipmentAccuracyCheckConductedAgainOn">
+      </mat-form-field><br>
+
+      <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <mat-form-field appearance="standard" class="dpick">
+          <mat-label>at Time</mat-label>
+          <input matInput formControlName="ataTime">
+        </mat-form-field> -->
+      <br><br>
+
+      6: <mat-checkbox color="primary" formControlName="isETSCompletedWithinSevenAndTenYears"
+        (change)="onChange_6($event,'')">ETS completed within seven (7) and ten (10) years prior to the date of the
+        alleged violation.</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a: <mat-checkbox color="primary"
+        [disabled]="checkboxValue_6" formControlName="isHighwaySectionEvaluatedByEngineer">A registered engineer has
+        evaluated the section of the highway in question and has determined that no significant changes in roadway or
+        traffic conditions have occurred.</mat-checkbox><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b:
+      <mat-checkbox color="primary" [disabled]="checkboxValue_6">All of the elements marked under item 5, above, which
+        are applicable.</mat-checkbox><br>
+
+
+      <!-- <div align="end">
+        <mat-chip selected (click)="continue()">&nbsp;Continue&nbsp;</mat-chip>
+      </div>
+    </mat-tab> -->
+
+      <!-- Mat tab 3 content ends here -->
+
+      <!-- Mat Tab section 4 content comes here -->
+
+      <!-- <mat-tab label="Tab4">
+        <br>
+        <mat-chip selected (click)="previous()">&nbsp;Back&nbsp;</mat-chip> -->
+      <br>
+      <p>7: FACTS AND CIRCUMSTANCES (State what happened):</p>
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <textarea matInput formControlName="officerFactsAndCircumstances" rows="12"></textarea>
+      </mat-form-field><br>
+      <p>8: OTHER EVIDENCE AND STATEMENTS (Explain any other evidence and statements):</p>
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <textarea matInput formControlName="officerEvidenceAndStatements" rows="30"></textarea>
+      </mat-form-field><br>
+      <!-- <div align="end">
+          <mat-chip selected (click)="continue()">&nbsp;Continue&nbsp;</mat-chip>
+        </div>
+      </mat-tab> -->
+
+      <!-- Mat tab 4 content ends here -->
+
+      <!-- Mat tab 5 content starts here -->
+
+      <!-- <mat-tab label="Tab5">
+        <br>
+        <mat-chip selected (click)="previous()">&nbsp;Back&nbsp;</mat-chip> -->
+
+      <br>
+      <p>9: DIAGRAM(s) (specify):
+        <!-- <mat-form-field appearance="outline" class="resize1">
+            <input matInput formControlName="diagramFiles">
+          </mat-form-field><br>  -->
+      </p>
+
+      <!-- File upload code -->
+
+      <p style="text-align: center;font-weight: 600;">Please upload file here</p>
+
+      <div class="container_file" appDnd (fileDropped)="onFileDropped($event)">
+        <input class="input_file" type="file" #fileDropRef id="fileDropRef" multiple
+          (change)="fileBrowseHandler($event.target.files)" />
+        <!-- upload icon here -->
+        <mat-icon>cloud_upload</mat-icon>
+        <h3>Drag and drop file here</h3>
+        <h3>or</h3>
+        <label for="fileDropRef">Browse for file</label>
+      </div>
+      <div class="files-list">
+        <div class="single-file" *ngFor="let file of files; let i = index">
+          <div class="file-icon" style="width: 50px">
+            <!-- image icon here-->
+            <mat-icon>image</mat-icon>
+          </div>
+          <div class="info">
+            <h4 class="name">
+              {{ file?.name }}
+            </h4>
+            <!-- <p class="size">
+                 {{ formatBytes(file?.size) }}
+               </p> -->
+            <!-- <app-progress [progress]="file?.progress"></app-progress> -->
+          </div>
+
+          <div class="delete" (click)="deleteFile(i)">
+            <mat-icon>delete</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- End of file upload code -->
+
+      <p style="font-weight: 500; font-size: 18px; text-align: center;">
+        <mat-checkbox color="primary"> I declare under penalty of perjury under the laws of the State of California that
+          the foregoing is true and correct.</mat-checkbox>
+      </p>
+      <br>
+
+      <!-- <mat-form-field>
+          <input matInput type="datetime-local" placeholder="start date">
+        </mat-form-field> -->
+
+      <mat-form-field appearance="outline">
+        <!-- <mat-label>Date</mat-label> -->
+        <input matInput [matDatepicker]="myDatePicker4" formControlName="declarationSubmittedOn" disabled>
+        <mat-datepicker-toggle [for]="myDatePicker4" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #myDatePicker4></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Officer Name</mat-label>
+        <input matInput formControlName="oName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>ID Number</mat-label>
+        <input matInput formControlName="idNum">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Agency NCIC Number</mat-label>
+        <input matInput formControlName="agencyNCICNumber">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Signature</mat-label>
+        <input matInput formControlName="officerSignature">
+      </mat-form-field>
+      <div align="end">
+        <button mat-raised-button>Submit</button>
+      </div>
+      <!-- </mat-tab> -->
+
+      <!-- Mat tab 5 content ends here -->
+
+      <!-- </mat-tab-group> -->
+    </form>
+
+  </div>
+  <br>
+  <footer class="page-footer">
+    <p style="text-align: center; color: white; font-weight: 600;">&copy; 2020 Judicial Council of California</p>
+  </footer>
+</body>

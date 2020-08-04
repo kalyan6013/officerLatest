@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-checkbox-layout{
+    /* display: contents !important; */
+    display: contents !important;
+}
+
+.mat-checkbox-label{
+    white-space: initial !important;
+}
+
+.mat-chip{
+    font-size: 24px !important;
+    cursor: pointer !important;
+    border-radius: 10px !important;
+    border: 2px !important;
+}
+body{
+    background-color: #f2f3f4 !important;
+  }
+
+footer{
+    padding: 2px;
+    border: 1px;
+    background-color: #2a3c50 !important;
+}
+
+.mat-tab-list{
+    background-color: #ECF0F1 !important;
+  }
+
+
+ .mat-tab-label .mat-tab-label-content {
+    color: #673ab7;
+    font-weight: bolder;
+    font-size: 16px;
+  }
+
+  .page-footer{
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    width: auto !important;
+    /* background-color: #2a3c50 */
+  }
+
+  footer{
+    overflow-x: hidden !important;
+    padding: 2px;
+    border: 1px;
+    background-color: #2a3c50 !important;
+  }

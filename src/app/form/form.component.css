@@ -1,0 +1,447 @@
+@import url("https://fonts.googleapis.com/css?family=Lora");
+@import url("https://fonts.googleapis.com/css?family=Lato");
+
+
+html{
+  font-family: sans-serif;
+}
+
+body {
+  font-family: "Lato", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+h1, h2, h3, h4, h5, h6, p{
+  font-family: "Lora", Georgia, Times, serif;
+}
+
+.mat-display-1{
+    margin-bottom: 18px !important;
+    text-align: center;
+}
+.mat-title{
+    text-align: center;
+}
+
+.container{
+    margin: 0px 40px;
+    /* max-width: 100%; */
+}
+
+form.normal-form{
+    margin:10px;
+    /* text-align:center; */
+}
+
+.mat-form-field{
+    width: 50% !important;
+    margin-left: 25% !important;
+}
+
+.resize{
+    width: 20% !important;
+    margin: 0px !important;
+}
+
+hr{
+   border-width:2px !important;
+   border-color: purple;
+   border-radius: 5px;
+   border-style: solid;
+}
+
+.pstyle{
+  text-align: center; 
+  font-weight: 600;
+}
+
+.dpick{
+    width: 25% !important;
+    margin: 0px !important;
+}
+
+.inline{
+    display: inline !important;
+}
+
+.mat-raised-button{
+  background-color: #0b5fa5;
+  color: white;
+}
+
+/* File Upload CSS */
+
+.container_file {
+    width: 450px;
+    height: 200px;
+    padding: 2rem;
+    text-align: center;
+    border: dashed 1px #979797;
+    position: relative;
+    margin: 0 auto;
+}
+    .input_file {
+      opacity: 0;
+      position: absolute;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+  
+    label {
+      color: white;
+      width: 183px;
+      height: 44px;
+      border-radius: 21.5px;
+      background-color: #0b5fa5 !important;
+      padding: 8px 16px;
+    }
+  
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #38424c;
+    }
+  
+  
+  .fileover {
+    animation: shake 1s;
+    animation-iteration-count: infinite;
+  }
+  
+  .files-list {
+    margin-top: 1.5rem;
+  }
+    .single-file {
+      display: flex;
+      padding: 0.5rem;
+      justify-content: space-between;
+      align-items: center;
+      border: dashed 1px #979797;
+      margin-bottom: 1rem;
+    }
+      .delete {
+        display: flex;
+        margin-left: 0.5rem;
+        cursor: pointer;
+        align-self: flex-end;
+      }
+  
+  
+      /* display: flex;
+      flex-grow: 1; */
+  
+      .name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #353f4a;
+        margin: 0;
+      }
+  
+      .size {
+        font-size: 12px;
+        font-weight: 500;
+        color: #a4a4a4;
+        margin: 0;
+        margin-bottom: 0.25rem;
+      }
+  
+      .info {
+        width: 100%
+      }
+    
+  
+  
+  /* Shake animation */
+  @keyframes shake {
+    0% {
+      transform: translate(1px, 1px) rotate(0deg);
+    }
+  
+    10% {
+      transform: translate(-1px, -2px) rotate(-1deg);
+    }
+  
+    20% {
+      transform: translate(-3px, 0px) rotate(1deg);
+    }
+  
+    30% {
+      transform: translate(3px, 2px) rotate(0deg);
+    }
+  
+    40% {
+      transform: translate(1px, -1px) rotate(1deg);
+    }
+  
+    50% {
+      transform: translate(-1px, 2px) rotate(-1deg);
+    }
+  
+    60% {
+      transform: translate(-3px, 1px) rotate(0deg);
+    }
+  
+    70% {
+      transform: translate(3px, 1px) rotate(-1deg);
+    }
+  
+    80% {
+      transform: translate(-1px, -1px) rotate(1deg);
+    }
+  
+    90% {
+      transform: translate(1px, 2px) rotate(0deg);
+    }
+  
+    100% {
+      transform: translate(1px, -2px) rotate(-1deg);
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .container_file{
+      width: auto !important;
+      height: auto !important;
+    }
+    .mat-form-field{
+      width: 80% !important;
+      margin-left: 0px !important;
+  }
+    .resize{
+      width: 40% !important;
+    }
+    .body{
+      overflow-x: hidden !important;
+    }
+    .mat-chip{
+      margin-right: 50px !important;
+    }
+    .pstyle{
+      font-size: 16px !important;
+    }
+    hr{
+      margin-right: 20% !important;
+      width: auto !important;
+    }
+  }
+
+  .example-card{
+    margin-left: 25%;
+    margin-top: 10px;
+    width: 50% !important;
+    height: auto !important;
+  }
+ 
+ 
+.resize1{
+  width: 50% !important;
+  margin: 0px !important;
+}
+
+/* start of css for file */
+
+/* File Upload CSS */
+
+.container_file {
+  width: 450px;
+  height: 200px;
+  padding: 2rem;
+  text-align: center;
+  border: dashed 1px #979797;
+  position: relative;
+  margin: 0 auto;
+}
+  .input_file {
+    opacity: 0;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  label {
+    color: white;
+    width: 183px;
+    height: 44px;
+    border-radius: 21.5px;
+    background-color: #db202f;
+    padding: 8px 16px;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #38424c;
+  }
+
+
+.fileover {
+  animation: shake 1s;
+  animation-iteration-count: infinite;
+}
+
+.files-list {
+  margin-top: 1.5rem;
+}
+  .single-file {
+    display: flex;
+    padding: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+    border: dashed 1px #979797;
+    margin-bottom: 1rem;
+  }
+    .delete {
+      display: flex;
+      margin-left: 0.5rem;
+      cursor: pointer;
+      align-self: flex-end;
+    }
+
+
+    /* display: flex;
+    flex-grow: 1; */
+
+    .name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #353f4a;
+      margin: 0;
+    }
+
+    .size {
+      font-size: 12px;
+      font-weight: 500;
+      color: #a4a4a4;
+      margin: 0;
+      margin-bottom: 0.25rem;
+    }
+
+    .info {
+      width: 100%
+    }
+  
+
+
+/* Shake animation */
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+/* end of css for file */
+
+/* Start of Css for file
+
+.uploadfilecontainer {
+  background-image: url("../../assets/cloud-2044823_960_720.png");
+  background-repeat: no-repeat;
+  background-size: 100px;
+  background-position: center;
+  height: 200px;
+  width: 80%;
+  margin: 20px auto;
+  border: 2px dashed #1C8ADB;
+  border-radius: 10px;
+}
+
+.uploadfilecontainer:hover {
+  cursor: pointer;
+  background-color: #9ecbec !important;
+  opacity: 0.8;
+}
+
+.files-list {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 10px auto;
+  background: #ffffff;
+  border: 1px dashed;
+  border-radius: 12px;
+  padding: 5px;
+  color: #1c8adb;
+}
+
+.files-list .delete-file {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.files-list .delete-file img{
+  width:30px;
+} */
+
+/* End of Css for file */
+
+
+/* New Code Start */
+
+.material-icons{
+  font-size: 36px !important;
+  padding-top: 15px;
+  /* margin-right: 20%; */
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 20%;
+}
+
+/* New Code End */

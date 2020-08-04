@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <p class="text1">Please check the below details before proceeding</p>
+            <form *ngIf="homeForm" [formGroup]="homeForm" class="form-horizontal" (ngSubmit)="continue(homeForm.value)">
+                <ng-container *ngIf="home$ | async as data">
+
+                    <!-- <div class="form-group input-group">
+                        <span class="has-float-label">
+                          <input class="form-control" id="first" type="text" placeholder="Name"/>
+                          <label for="first">First</label>
+                          </span>
+                    </div> -->
+
+                    <!-- <div class="form-group input-group">
+                        <span class="has-float-label">
+                          <input class="form-control" id="oName" type="text"
+                          formControlName="oName" placeholder="Officer Name" readonly/>
+                          <label for="Officer Name">Officer Name</label>
+                        </span>
+                    </div> -->
+
+                <div class="form-group">
+                    <label class="control-label" class="text">Officer Name</label>
+                    <input type="text" class="form-control" formControlName="oName" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" class="text">Officer ID</label>
+                    <input type="text" class="form-control" formControlName="oIDNum" 
+                    readonly>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" class="text">Citation Number</label>
+                    <input type="text" class="form-control" formControlName="cNum" 
+                    readonly>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" class="text">County Name</label>
+                    <input type="text" class="form-control" formControlName="cName" 
+                    readonly>
+                </div>
+            <!-- </ng-container> -->
+
+                <div align="end">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    
+</div>
+
+
+<!-- ts file -->
+home:any
+  homeForm : FormGroup
+
+  this.apiService.getData().subscribe((data)=>{
+    this.home = data;
+    
+    this.homeForm = new FormGroup({
+      oName:new FormControl(this.home[0].oName),
+      oIDNum:new FormControl(this.home[0].oIDNum),
+      cNum:new FormControl(this.home[0].cNum),
+      cName:new FormControl(this.home[0].cName)
+
+      // oName:new FormControl(''),
+      // oIDNum:new FormControl(''),
+      // cNum:new FormControl(''),
+      // cName:new FormControl('')
+    })
+  })
+
+
+  continue(value){
+    console.log(value);
+   this.route.navigate(['/form']);
+  }
