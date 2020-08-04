@@ -28,13 +28,14 @@ export class HomeComponent implements OnInit {
  citation:any=[];
 
  displayedColumns: string[] = ['citation','fullName','county','violationDate','dueDate']
- dataSource = new MatTableDataSource;
+ dataSource = new MatTableDataSource();
  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
  //  New Code ends
 
- constructor(private route:Router,private apiService:ApiService) { }
+ constructor(private route:Router,private apiService:ApiService) {
+  }
 
   ngOnInit() {
 
@@ -67,21 +68,13 @@ export class HomeComponent implements OnInit {
     this.apiService.getCitation(this.countyForm.value.county,this.id).subscribe((citationData:any=[])=>{
       this.citation = citationData
       console.log(this.citation);
+      this.dataSource.data = this.citation;
     })
+    // console.log(this.citation);
     console.log(this.countyForm.value);
     console.log(this.officer.OfficerID);
 
   }
-
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
-
 
   //  New Code Ends
 
