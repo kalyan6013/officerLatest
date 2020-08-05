@@ -17,8 +17,9 @@ export class ApiService {
     return this.httpClient.get(`https://5f2907c2a1b6bf0016eace3c.mockapi.io/register/1`);
   }
 
-  public getCountyDetails(){
-    return this.httpClient.get(`https://5f2907c2a1b6bf0016eace3c.mockapi.io/county/1`);
+  public getCountyDetails(value){
+    console.log(value);
+    return this.httpClient.get(`https://5f2907c2a1b6bf0016eace3c.mockapi.io/county?AgencyName=`+value);
   }
 
   public getCitation(county,id){

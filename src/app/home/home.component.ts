@@ -31,6 +31,8 @@ export class HomeComponent implements OnInit {
 
  agencyForm: FormGroup;
 
+ fetchcounty:any;
+
  displayedColumns: string[] = ['citation','FullName','County','ViolationDate','DueDate']
  dataSource = new MatTableDataSource();
  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -84,10 +86,11 @@ export class HomeComponent implements OnInit {
 
   }
 
-  agencyDetails(){
-    this.apiService.getCountyDetails().subscribe(countydata=>{
+  agencyDetails(value){
+    this.apiService.getCountyDetails(value).subscribe(countydata=>{
       this.county = countydata;
-      console.log(this.county.countyname);
+      this.fetchcounty = this.county[0].countyname;
+      console.log(this.fetchcounty);
     })
 
   }
@@ -120,7 +123,7 @@ toggle(event,value){
 agency(event,value){
   if(event.checked == true){
     this.selectedCheckboxValue1 = value;
-    this.agencyDetails();
+    this.agencyDetails(value);
     console.log(value);
   }
 }

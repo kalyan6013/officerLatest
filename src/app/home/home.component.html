@@ -39,7 +39,7 @@
 <br>
 <form *ngIf="countyForm" #EditItemForm="ngForm" [formGroup]="countyForm" class="normal-form" (ngSubmit)="countyDetails()">
 
-  <div *ngFor="let c of this.county.countyname" style="display: inline; padding-left: 5px;">
+  <div *ngFor="let c of this.fetchcounty" style="display: inline; padding-left: 5px;">
     <mat-checkbox formControlName="county"  (change)="toggle($event,c)">
       {{c}}
     </mat-checkbox>
