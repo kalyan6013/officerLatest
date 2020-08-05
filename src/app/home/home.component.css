@@ -89,6 +89,22 @@ td, th {
   font-weight: 500;
 }
 
+.widgets_div {
+  text-align: end;
+}
+
+.widgets_div .icon_div {
+  display: inline-block;
+  margin-left: 15px;
+  vertical-align:middle;
+}
+
+.widgets_div .text_div {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
 /* New Code End */
 
 

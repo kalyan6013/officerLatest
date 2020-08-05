@@ -424,24 +424,26 @@ hr{
 
 .material-icons{
   font-size: 36px !important;
-  padding-top: 15px;
+  margin-top: 15px;
   /* margin-right: 20%; */
 }
-.mat-radio-button ~ .mat-radio-button {
-  margin-left: 16px;
+
+
+.widgets_div {
+  text-align: end;
 }
 
-table {
-  width: 100%;
+.widgets_div .icon_div {
+  display: inline-block;
+  margin-left: 15px;
+  vertical-align:middle;
 }
 
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
+.widgets_div .text_div {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
 }
 
-td, th {
-  width: 20%;
-}
 
 /* New Code End */

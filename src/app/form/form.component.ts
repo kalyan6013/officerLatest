@@ -34,16 +34,9 @@ export class FormComponent implements OnInit {
 //  New Code Starts
 
  officer:any=[];
- county:any=[];
- countyForm : FormGroup;
- id:any=[];
- citation:any=[];
+  citationData:any=[];
 
- displayedColumns: string[] = ['citation','fullName','county','violationDate','dueDate']
- dataSource = new MatTableDataSource;
- @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
- @ViewChild(MatSort, {static: true}) sort: MatSort;
-
+ 
  //  New Code ends
 
  userForm: FormGroup
@@ -75,6 +68,14 @@ export class FormComponent implements OnInit {
   constructor(private route:Router,private apiService:ApiService) { }
   
   ngOnInit() {
+
+    //New code starts
+    // console.log(this.apiService.data);
+    
+      this.citationData = this.apiService.data;
+
+     // New code ends
+
     this.apiService.getData().subscribe((data)=>{
       this.user = data;
 
@@ -148,49 +149,14 @@ export class FormComponent implements OnInit {
 
     //  New Code Starts
 
-    this.countyForm = new FormGroup({
-      county:new FormControl('')
-    })
-
+   
     this.apiService.getOfficerData().subscribe(officerdata=>{
       this.officer = officerdata;
-      console.log(this.officer);
+      // console.log(this.officer);
     })
-
-    this.apiService.getCountyDetails().subscribe(countydata=>{
-      this.county = countydata;
-      console.log(this.county.countyname);
-    })
-
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
     //  New Code ends
   }
   
-    //  New Code Starts
-
-    countyDetails(){
-      this.apiService.getCitation(this.countyForm.value.county,this.id).subscribe((citationData:any=[])=>{
-        this.citation = citationData
-        console.log(this.citation);
-      })
-      console.log(this.countyForm.value);
-      console.log(this.officer.OfficerID);
-
-    }
-
-    // applyFilter(event: Event) {
-    //   const filterValue = (event.target as HTMLInputElement).value;
-    //   this.dataSource.filter = filterValue.trim().toLowerCase();
-  
-    //   if (this.dataSource.paginator) {
-    //     this.dataSource.paginator.firstPage();
-    //   }
-    // }
-  
-
-    //  New Code Ends
  
   // Form submission function
   submit(post){
@@ -624,5 +590,12 @@ b64toBlob1 = (b64Data, contentType='', sliceSize=512) => {
 
   //End of the file upload code for ETS
 
+  // New Code Starts
+
+  retHome(){
+    this.route.navigate(['/']);
+  }
+
+  // New Code Ends
 }
 

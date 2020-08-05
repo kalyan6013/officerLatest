@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-
+  data:any=[];
   constructor(private httpClient: HttpClient) { }
   public getData(){
     return this.httpClient.get(`http://localhost:3000/officer`);
@@ -25,5 +25,10 @@ export class ApiService {
     console.log(county);
     return this.httpClient.get(`https://5f2907c2a1b6bf0016eace3c.mockapi.io/citations?County=`+county+`&&OfficerID=A0234G`);
   }
+  
+  public showDetails(data){
+    this.data=data;
+  }
+
   // New Code Ends
 }

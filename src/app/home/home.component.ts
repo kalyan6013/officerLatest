@@ -26,8 +26,12 @@ export class HomeComponent implements OnInit {
  countyForm : FormGroup;
  id:any=[];
  citation:any=[];
+ selectedCheckboxValue:any=[];
+ selectedCheckboxValue1:any;
 
- displayedColumns: string[] = ['citation','fullName','county','violationDate','dueDate']
+ agencyForm: FormGroup;
+
+ displayedColumns: string[] = ['citation','FullName','County','ViolationDate','DueDate']
  dataSource = new MatTableDataSource();
  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
  @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -50,13 +54,17 @@ export class HomeComponent implements OnInit {
       console.log(this.officer);
     })
 
-    this.apiService.getCountyDetails().subscribe(countydata=>{
-      this.county = countydata;
-      console.log(this.county.countyname);
-    })
+    // this.apiService.getCountyDetails().subscribe(countydata=>{
+    //   this.county = countydata;
+    //   console.log(this.county.countyname);
+    // })
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.agencyForm = new FormGroup({
+      agency:new FormControl('')
+    })
 
     //  New Code ends
     
@@ -65,17 +73,57 @@ export class HomeComponent implements OnInit {
    //  New Code Starts
 
    countyDetails(){
-    this.apiService.getCitation(this.countyForm.value.county,this.id).subscribe((citationData:any=[])=>{
+    this.apiService.getCitation(this.selectedCheckboxValue,this.id).subscribe((citationData:any=[])=>{
       this.citation = citationData
       console.log(this.citation);
       this.dataSource.data = this.citation;
     })
     // console.log(this.citation);
-    console.log(this.countyForm.value);
-    console.log(this.officer.OfficerID);
+    // console.log(this.countyForm.value);
+    // console.log(this.officer.OfficerID);
 
   }
 
+  agencyDetails(){
+    this.apiService.getCountyDetails().subscribe(countydata=>{
+      this.county = countydata;
+      console.log(this.county.countyname);
+    })
+
+  }
+
+  onRowClicked(row) {
+    // console.log('Row clicked: ', row);
+    this.apiService.showDetails(row);
+    this.route.navigate(['/form']);
+}
+
+toggle(event,value){
+  // console.log(event, value);
+  
+  if(event.checked == true){
+
+    //  this.selectedCheckboxValue.push(value);
+  this.selectedCheckboxValue = value;
+  console.log(value);
+ }
+// else{
+//   const index = this.selectedCheckboxValue.indexOf(value);
+
+// if (index > -1) {
+//   this.selectedCheckboxValue.splice(index, 1);
+// }
+// console.log(this.selectedCheckboxValue);
+// }
+}
+
+agency(event,value){
+  if(event.checked == true){
+    this.selectedCheckboxValue1 = value;
+    this.agencyDetails();
+    console.log(value);
+  }
+}
   //  New Code Ends
 
 }
