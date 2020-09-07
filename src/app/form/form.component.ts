@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup, Validators, ValidationErrors } from '@angular/forms'
 import{Router} from '@angular/router';
 import { ApiService } from '../app.service';
 
@@ -40,7 +40,8 @@ export class FormComponent implements OnInit {
  //  New Code ends
 
  userForm: FormGroup
-
+ userForm1: FormGroup
+ showMsg: boolean;
   
   // speed=[{vehicle:"Odometer"},{vehicle:"Visual estimation"},{vehicle:"Pacing"},{vehicle:"Radar (see items 4, 5, 6, below)"},{vehicle:"Laser"},{vehicle:"Aircraft"}];
 
@@ -76,27 +77,27 @@ export class FormComponent implements OnInit {
 
      // New code ends
 
-    this.apiService.getData().subscribe((data)=>{
-      this.user = data;
+    // this.apiService.getData().subscribe((data)=>{
+      // this.user = data;
 
     this.userForm = new FormGroup({
-      court:new FormControl(this.user[0].court),
-      sAddress:new FormControl(this.user[0].sAddress),
-      mAddress:new FormControl(this.user[0].mAddress),
-      city:new FormControl(this.user[0].city),
-      state:new FormControl(this.user[0].state),
-      zip:new FormControl(this.user[0].zip),
-      bName:new FormControl(this.user[0].bName),
-      telephone:new FormControl(this.user[0].tel),
+      court:new FormControl(''),
+      sAddress:new FormControl(''),
+      mAddress:new FormControl(''),
+      city:new FormControl(''),
+      state:new FormControl(''),
+      zip:new FormControl(''),
+      bName:new FormControl(''),
+      telephone:new FormControl(''),
       defendent:new FormControl(''),
-      rDate:new FormControl(this.user[0].rDate),
-      aoName:new FormControl(this.user[0].aoName),
-      aoID:new FormControl(this.user[0].aoID),
-      cNum:new FormControl(this.user[0].cNum),
-      dIssued:new FormControl(this.user[0].dIssued),
-      aNum:new FormControl(this.user[0].aNum),
-      office:new FormControl(this.user[0].office),
-      caNum:new FormControl(this.user[0].caNum),
+      rDate:new FormControl(''),
+      aoName:new FormControl(''),
+      aoID:new FormControl(''),
+      cNum:new FormControl(''),
+      dIssued:new FormControl(''),
+      aNum:new FormControl(''),
+      office:new FormControl(''),
+      caNum:new FormControl(''),
       name:new FormControl(''),
       isPeaceOfficerOnDuty:new FormControl(false),
       isForExclusivePurposeOfTrafficEnforcement:new FormControl(false),
@@ -109,12 +110,12 @@ export class FormComponent implements OnInit {
       isTrafficSignSignalDeviceProperlyVisible:new FormControl(false),
       isDiagramSubmittedAccurate:new FormControl(false),
       isSpeedSignificantFactor:new FormControl(false),
-      vehicleCalibrationDate:new FormControl(''),
-      vehicleCalibrationResult:new FormControl(''),
+      vehicleCalibrationDate:new FormControl({value:'',disabled:true}),
+      vehicleCalibrationResult:new FormControl({value:'',disabled:true}),
       isCalibrationConsideredDuringSpeedDetermination:new FormControl(false),
       isDefendantIdentifiedByDL:new FormControl(false),
       isDefendantIdentifiedByOther:new FormControl(false),
-      DefendantIdentifiedByOtherDescription:new FormControl(''),
+      DefendantIdentifiedByOtherDescription:new FormControl({value:'',disabled:true}),
       isOdometerUsed:new FormControl(false),
       isVisualEstimationUsed:new FormControl(false),
       isPacingUsed:new FormControl(false),
@@ -145,18 +146,47 @@ export class FormComponent implements OnInit {
       agencyNCICNumber:new FormControl(''),
       officerSignature:new FormControl(''),
       })
-    })
+    // })
 
+    this.userForm1 = new FormGroup({
+      checked : new FormControl(false,Validators.required)
+    // validatebox : new FormControl('',[(control) => {
+    //   return !control.value?{'required':true} : null;
+    // }])
+  },[this.validateIfChecked()])
     //  New Code Starts
 
-   
+ 
     this.apiService.getOfficerData().subscribe(officerdata=>{
       this.officer = officerdata;
       // console.log(this.officer);
     })
     //  New Code ends
   }
+  validateIfChecked(): import("@angular/forms").ValidatorFn {
+    return (form: FormGroup): ValidationErrors | null => {
+      const checked = form.get('checked');
+     
+      if (checked) {
+        this.showMsg = false
+        return {
+          'err': true
+        };
+      } else {
+        this.showMsg = true
+      }
+      return null;
+    }
+  }
   
+  submit1(value1){
+    if(value1.checked === true){
+      this.showMsg = false
+    } else {
+      this.showMsg = true
+    }
+    console.log(value1);
+  }
  
   // Form submission function
   submit(post){
@@ -217,18 +247,7 @@ export class FormComponent implements OnInit {
 
   /* Start of Checkbox condition for the items */
 
-  onChange_a($event,value){
-    // console.log($event,value);
-     if($event.checked == true){
-      this.selectedCheckboxValue_a = value;
-      this.checkboxValue_a = !this.checkboxValue_a;
-     } else {
-      this.selectedCheckboxValue_a = '';
-      this.selectedCheckboxValue_a = '';
-       this.checkboxValue_a = !this.checkboxValue_a;
-     }
-  }
-
+  
   onChange_c($event,value){
      if($event.checked == true){
       this.selectedCheckboxValue_c = value;
@@ -240,6 +259,21 @@ export class FormComponent implements OnInit {
      }
   }
 
+  onChange_a($event,value){
+    // console.log($event,value);
+    console.log("value of h",this.userForm.get('isSpeedSignificantFactor').value);
+     if($event.checked == true){
+      this.selectedCheckboxValue_a = value;
+      this.checkboxValue_a = !this.checkboxValue_a;
+     } else {
+      this.selectedCheckboxValue_a = '';
+      this.selectedValue_a = '';
+       this.checkboxValue_a = !this.checkboxValue_a;
+       this.userForm.get("isForExclusivePurposeOfTrafficEnforcement").setValue(false);
+       this.userForm.get("isWearingUniform").setValue(false);
+     }
+  }
+
   onChange_i($event,value){
      if($event.checked == true){
       this.selectedCheckboxValue_i = value;
@@ -248,8 +282,40 @@ export class FormComponent implements OnInit {
       this.selectedCheckboxValue_i = '';
       this.selectedValue_i='';
        this.checkboxValue_i = !this.checkboxValue_i;
+       this.userForm.get("DefendantIdentifiedByOtherDescription").disable();
+       this.userForm.get("isDefendantIdentifiedByDL").setValue(false);
+       this.userForm.get("isDefendantIdentifiedByOther").setValue(false);
+       this.userForm.get("DefendantIdentifiedByOtherDescription").setValue('');
      }
   }
+
+  onChange_i2($event,value){
+    if($event.checked == true){
+      this.userForm.get("DefendantIdentifiedByOtherDescription").enable();
+
+    } else {
+     
+      this.userForm.get("DefendantIdentifiedByOtherDescription").disable();
+      this.userForm.get("DefendantIdentifiedByOtherDescription").setValue('');
+    }
+ }
+
+  onChange_h($event,value){
+    if($event.checked == true){
+      this.userForm.get("vehicleCalibrationResult").enable();
+
+     this.userForm.get("vehicleCalibrationDate").enable();
+    } else {
+    
+      this.userForm.get("vehicleCalibrationResult").disable();
+      this.userForm.get("vehicleCalibrationResult").setValue('');
+
+      this.userForm.get("vehicleCalibrationDate").disable();
+      this.userForm.get("vehicleCalibrationDate").setValue('');
+
+
+    }
+ }
 
   onChange_2($event,value){
      if($event.checked == true){

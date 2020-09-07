@@ -225,7 +225,39 @@ hr{
       margin-right: 20% !important;
       width: auto !important;
     }
+    .sectext{
+      font-size: 12px !important;
+    }
+    .container{
+      margin: 0px 5px !important;
+    }
+    .col-md-9{
+      max-width: 50% !important;
+    }
+    .col-md-3{
+      max-width: 40% !important;
+    }
+    .widgets_div .icon_div {
+      display: inline-block;
+      margin-left: 5px !important;
+      vertical-align:middle;
+    }
+    
+    .widgets_div .text_div {
+      display: inline-block;
+      /* margin-left: 2px !important; */
+      vertical-align: middle;
+    }
+    .material-icons{
+      font-size: 16px !important;
+      padding-top: 5px !important;
+      /* margin-right: 20%; */
+    }
+    .officetext{
+      font-size: 10px;
+    }
   }
+
 
   .example-card{
     margin-left: 25%;
@@ -423,7 +455,7 @@ hr{
 /* New Code Start */
 
 .material-icons{
-  font-size: 36px !important;
+  font-size: 36px;
   margin-top: 15px;
   /* margin-right: 20%; */
 }

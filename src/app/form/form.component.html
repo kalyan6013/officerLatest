@@ -6,8 +6,8 @@
   <br>
   <div class="row container">
     <div class="col-md-9">
-  <p style="font-weight: bold;">Officer's Electronic Declaration</p>
-  <p>Defendent <span style="font-weight: bold;">{{this.citationData.FullName}}</span> Citation Number <span style="font-weight: bold;">{{this.citationData.citation}}</span> Due date <span style="font-weight: bold;">{{this.citationData.DueDate}}</span></p>
+  <p class="sectext" style="font-weight: bold;">Officer's Electronic Declaration</p>
+  <p class="sectext">Defendent <span style="font-weight: bold;">{{this.citationData.FullName}}</span> Citation Number <span style="font-weight: bold;">{{this.citationData.citation}}</span> Due date <span style="font-weight: bold;">{{this.citationData.DueDate}}</span></p>
 </div>
 
 <div class="col-md-3 widgets_div">
@@ -17,7 +17,7 @@
   </span>
 </div>
     <div class="text_div">
-  <span>
+  <span class="officetext">
   {{this.officer.OfficerName}}<br>
   {{this.officer.Badge}}<br>
   {{this.officer.OfficerID}}<br>
@@ -25,7 +25,18 @@
 </div>
 </div>
 
+<form *ngIf="userForm1" [formGroup]="userForm1" class="normal-form" (ngSubmit)="submit1(userForm1.value)">
+  
+  <mat-checkbox formControlName="checked">Test</mat-checkbox>
+  <div *ngIf="showMsg">
+   
+      <strong>Error</strong> 
+
   </div>  
+  <div align="end">
+    <button mat-raised-button>Submit</button>
+  </div> 
+</form >
 <br>
 
 <div class="container">
@@ -220,25 +231,26 @@
         exact or to scale, but is/are reasonably complete, accurate, and fairly depict(s) the location, situation, and
         events describe.</mat-checkbox><br><br>
 
-      h: <mat-checkbox color="primary" formControlName="isSpeedSignificantFactor">
+      h: <mat-checkbox color="primary" formControlName="isSpeedSignificantFactor" (change)="onChange_h($event,'')">
         <div class="inline">
           Speed supported by the patrol vehicle’s speedometer was a significant factor. Pursuant to department policy,
           the patrol vehicle used in connection with
 
-          <mat-form-field appearance="standard" class="resize">
-            <input matInput type="date" formControlName="vehicleCalibrationDate">
-            <!-- <mat-datepicker-toggle [for]="myDatePicker01" matSuffix></mat-datepicker-toggle>
-              <mat-datepicker #myDatePicker01></mat-datepicker> -->
-          </mat-form-field>
-
-          this citation was officially calibrated on (date):
-
-          The result was (specify):
-          <mat-form-field appearance="standard" class="resize">
-            <input matInput formControlName="vehicleCalibrationResult">
-          </mat-form-field>
+          
         </div>
-      </mat-checkbox><br>
+      </mat-checkbox>
+      <mat-form-field appearance="standard" class="resize">
+        <input matInput type="date" formControlName="vehicleCalibrationDate" >
+        <!-- <mat-datepicker-toggle [for]="myDatePicker01" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #myDatePicker01></mat-datepicker> -->
+      </mat-form-field>
+
+      this citation was officially calibrated on (date):
+
+      The result was (specify):
+      <mat-form-field appearance="standard" class="resize">
+        <input matInput disabled formControlName="vehicleCalibrationResult" >
+      </mat-form-field><br>
 
       i: <mat-checkbox color="primary" formControlName="isCalibrationConsideredDuringSpeedDetermination"
         (change)="onChange_i($event,'')">The
@@ -247,12 +259,15 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<mat-checkbox color="primary"
         [disabled]="checkboxValue_i" formControlName="isDefendantIdentifiedByDL">Driver’s License</mat-checkbox><br>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <mat-checkbox color="primary" [disabled]="checkboxValue_i" formControlName="isDefendantIdentifiedByOther">Or
+      <mat-checkbox color="primary" [disabled]="checkboxValue_i" formControlName="isDefendantIdentifiedByOther" (change)="onChange_i2($event,'')">Or
         Other(specify)
-        <mat-form-field appearance="standard" class="resize">
-          <input matInput formControlName="DefendantIdentifiedByOtherDescription" [disabled]="checkboxValue_i">
-        </mat-form-field>
+       
       </mat-checkbox>
+      <mat-form-field appearance="standard" class="resize">
+        <input matInput formControlName="DefendantIdentifiedByOtherDescription">
+      </mat-form-field>
+
+      
       <!-- <div align="end">
           <mat-chip selected (click)="continue()">&nbsp;Continue&nbsp;</mat-chip>
       </div>
@@ -483,7 +498,7 @@
       <!-- End of file upload code -->
 
       <p style="font-weight: 500; font-size: 18px; text-align: center;">
-        <mat-checkbox color="primary"> I declare under penalty of perjury under the laws of the State of California that
+        <mat-checkbox color="primary" formControlName="validatebox"> I declare under penalty of perjury under the laws of the State of California that
           the foregoing is true and correct.</mat-checkbox>
       </p>
       <br>

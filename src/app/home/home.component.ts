@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 
 import{Router} from '@angular/router';
 import { ApiService } from '../app.service';
@@ -29,11 +29,17 @@ export class HomeComponent implements OnInit {
  selectedCheckboxValue:any=[];
  selectedCheckboxValue1:any;
 
+ selectedRowIndex: number = -1;
+
+ showMsg: boolean = false;
+
  agencyForm: FormGroup;
 
  fetchcounty:any;
 
- displayedColumns: string[] = ['citation','FullName','County','ViolationDate','DueDate']
+ showMsg1:boolean;
+
+ displayedColumns: string[] = ['checkbox','citation','FullName','County','ViolationDate','DueDate']
  dataSource = new MatTableDataSource();
  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
  @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -48,8 +54,8 @@ export class HomeComponent implements OnInit {
      //  New Code Starts
 
      this.countyForm = new FormGroup({
-      county:new FormControl('')
-    })
+      county:new FormControl(false, Validators.required)
+    },[this.validateIfChecked()])
 
     this.apiService.getOfficerData().subscribe(officerdata=>{
       this.officer = officerdata;
@@ -71,15 +77,46 @@ export class HomeComponent implements OnInit {
     //  New Code ends
     
   }
+  validateIfChecked(): import("@angular/forms").ValidatorFn {
+    return (form: FormGroup): ValidationErrors | null => {
+      const checked = form.get('county');
+     
+      if (checked) {
+        this.showMsg1= false
+        return {
+          'err': true
+        };
+      } else {
+        this.showMsg1 = true
+      }
+      return null;
+    }
+  }
   
    //  New Code Starts
 
-   countyDetails(){
-    this.apiService.getCitation(this.selectedCheckboxValue,this.id).subscribe((citationData:any=[])=>{
-      this.citation = citationData
-      console.log(this.citation);
-      this.dataSource.data = this.citation;
-    })
+   countyDetails(value1){
+     console.log(value1)
+    if(value1.county === true){
+      this.showMsg1 = false
+      this.apiService.getCitation(this.selectedCheckboxValue,this.id).subscribe((citationData:any=[])=>{
+        this.citation = citationData
+        console.log(this.citation);
+        this.dataSource.data = this.citation;
+        console.log(this.dataSource.data);
+        this.showMsg= true;
+      })
+    } else {
+      this.showMsg1 = true
+    }
+    // this.apiService.getCitation(this.selectedCheckboxValue,this.id).subscribe((citationData:any=[])=>{
+    //   this.citation = citationData
+    //   console.log(this.citation);
+    //   this.dataSource.data = this.citation;
+    //   console.log(this.dataSource.data);
+    //   this.showMsg= true;
+      
+    // })
     // console.log(this.citation);
     // console.log(this.countyForm.value);
     // console.log(this.officer.OfficerID);
@@ -97,8 +134,11 @@ export class HomeComponent implements OnInit {
 
   onRowClicked(row) {
     // console.log('Row clicked: ', row);
+    this.selectedRowIndex = row.id;
     this.apiService.showDetails(row);
+    setTimeout(() => {
     this.route.navigate(['/form']);
+    },2000);
 }
 
 toggle(event,value){
@@ -128,5 +168,9 @@ agency(event,value){
   }
 }
   //  New Code Ends
+  onChangeCheck(this, $event){
+    if($event.checked == true){
 
+  }
 }
+  }
