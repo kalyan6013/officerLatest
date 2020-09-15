@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators, ValidationErrors } from '@angular/forms'
 import{Router} from '@angular/router';
 import { ApiService } from '../app.service';
@@ -17,6 +17,14 @@ import {MatSort} from '@angular/material/sort';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+
+
+
+  @ViewChild('element', {static:false}) element: ElementRef;
+
+    ngAfterViewInit() {
+
+    }
 
   // New Code Starts
 
@@ -63,7 +71,8 @@ export class FormComponent implements OnInit {
   checkboxValue_4:boolean=true;
   checkboxValue_5:boolean=true;
   checkboxValue_6:boolean=true;
-  
+  showMsg2: boolean = false;
+  showMsg3: boolean = false;
   /* End of Checkbox condition for the items  */
 
   constructor(private route:Router,private apiService:ApiService) { }
@@ -190,6 +199,8 @@ export class FormComponent implements OnInit {
  
   // Form submission function
   submit(post){
+    console.log(this.showMsg2);
+    if(this.showMsg2 == false){
     let finalOutput ={
       "agencyNCICNumber": post.agencyNCICNumber,
       "officerDeclaration": {
@@ -238,9 +249,13 @@ export class FormComponent implements OnInit {
     "officerSignature": "/a/" + post.officerSignature
       }
     }
+    this.showMsg3 = false;
     console.log("output", JSON.stringify(finalOutput));
     console.log(post);
     this.userForm.reset();
+  }else{
+    this.showMsg3 = true;
+  }
     // window.location.reload();
     // console.log(post);
   }
@@ -260,8 +275,6 @@ export class FormComponent implements OnInit {
   }
 
   onChange_a($event,value){
-    // console.log($event,value);
-    console.log("value of h",this.userForm.get('isSpeedSignificantFactor').value);
      if($event.checked == true){
       this.selectedCheckboxValue_a = value;
       this.checkboxValue_a = !this.checkboxValue_a;
@@ -312,8 +325,6 @@ export class FormComponent implements OnInit {
 
       this.userForm.get("vehicleCalibrationDate").disable();
       this.userForm.get("vehicleCalibrationDate").setValue('');
-
-
     }
  }
 
@@ -337,6 +348,27 @@ export class FormComponent implements OnInit {
       // this.selectedValue_2='';
        this.checkboxValue_4 = !this.checkboxValue_4;
      }
+  }
+
+  onChange_4a($event, value){
+    if($event.checked == true){
+      // this.showMsg2 = true;
+      document.getElementById("element").style.display = "block";
+      if(this.files1.length == 0){
+        // console.log("inside if");
+        this.showMsg2 = true;
+      }else{
+        // console.log("inside else");
+        this.showMsg2 = false;
+      }
+    }else{
+      // this.showMsg2 = false;
+      this.showMsg3 = false;
+      this.showMsg2 = false;
+      document.getElementById("element").style.display = "none";
+      this.files1.length = 0;
+      this.diagram1.length = 0;
+    }
   }
 
   onChange_5($event,value){
@@ -386,27 +418,12 @@ export class FormComponent implements OnInit {
   deleteFile(index: number) {
     this.files.splice(index, 1);
     this.diagram.pop(index);
+    // if(this.files.length == 0){
+    //   console.log("length", this.files.length)
+    //   this.showMsg3 = true;
+    // }
   }
 
-  /**
-   * Simulate the upload process
-   */
-  // uploadFilesSimulator(index: number) {
-  //   setTimeout(() => {
-  //     if (index === this.files.length) {
-  //       return;
-  //     } else {
-  //       const progressInterval = setInterval(() => {
-  //         if (this.files[index].progress === 100) {
-  //           clearInterval(progressInterval);
-  //           this.uploadFilesSimulator(index + 1);
-  //         } else {
-  //           this.files[index].progress += 5;
-  //         }
-  //       }, 200);
-  //     }
-  //   }, 1000);
-  // }
 
   changeFile(file) {
     return new Promise((resolve, reject) => {
@@ -469,9 +486,12 @@ b64toBlob = (b64Data, contentType='', sliceSize=512) => {
             let file={size:item.size,fileName:item.name,blobName:this.fileBlob};
        this.diagram.push(file);
     })
-    
     // this.uploadFilesSimulator(0);
   }
+  // if(this.files.length > 0){
+  //   console.log("length ", this.files.length);
+  //   this.showMsg3 = false;
+  // }
 }
 
 
@@ -525,7 +545,9 @@ b64toBlob = (b64Data, contentType='', sliceSize=512) => {
    * handle file from browsing
    */
   fileBrowseHandler1(files1) {
+  
     this.prepareFilesList1(files1);
+  
   }
 
   /**
@@ -535,6 +557,10 @@ b64toBlob = (b64Data, contentType='', sliceSize=512) => {
   deleteFile1(index: number) {
     this.files1.splice(index, 1);
     this.diagram1.pop(index);
+    if(this.files1.length == 0){
+      console.log("length", this.files1.length)
+      this.showMsg2 = true;
+    }
   }
 
   /**
@@ -607,17 +633,25 @@ b64toBlob1 = (b64Data, contentType='', sliceSize=512) => {
   prepareFilesList1(files1: Array<any>) {
     for (const item of files1) {
       item.progress = 0;
-      this.files1.push(item);
-      const type = item.type;
-      this.changeFile1(item).then((base64: string): any => {
-            const base64Data =base64.toString().split(',')[1];
-
-            //Final blob conversion from Base64
-
-            this.fileBlob1 = this.b64toBlob(base64Data, type);
-            let file1={size:item.size,fileName:item.name,blobName:this.fileBlob1};
-       this.diagram1.push(file1);
-    })
+        console.log("insides true");
+        this.files1.push(item);
+        const type = item.type;
+        this.changeFile1(item).then((base64: string): any => {
+              const base64Data =base64.toString().split(',')[1];
+  
+              //Final blob conversion from Base64
+  
+              this.fileBlob1 = this.b64toBlob(base64Data, type);
+              let file1={size:item.size,fileName:item.name,blobName:this.fileBlob1};
+  
+         this.diagram1.push(file1);
+      })
+     
+     if(this.files1.length > 0){
+       console.log("length", this.files1.length)
+       this.showMsg2 = false;
+       this.showMsg3 = false;
+     }
     
     // this.uploadFilesSimulator(0);
   }

@@ -313,46 +313,52 @@
       4: <mat-checkbox color="primary" (change)="onChange_4($event, '')">ETS completed within five (5) years prior to
         date of alleged violation.</mat-checkbox><br>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a: <mat-checkbox color="primary"
-        [disabled]="checkboxValue_4">ETS attached.</mat-checkbox><br>
+        [disabled]="checkboxValue_4" formControlName="isETSattached" (change)="onChange_4a($event, '')">ETS attached.</mat-checkbox>
+
+              <!-- File upload code -->
+      <div id="element" style="display: none;">
+        <div *ngIf="showMsg2">
+          <p style="color: red;">Please select the image</p>
+      </div>
+        <p style="text-align: center;font-weight: 600;">Please upload file here</p>
+  
+        <div class="container_file" appDnd (fileDropped)="onFileDropped1($event)">
+          <input class="input_file" type="file" #fileDropRef id="fileDropRef" multiple
+            (change)="fileBrowseHandler1($event.target.files)" />
+          <!-- upload icon here -->
+          <mat-icon>cloud_upload</mat-icon>
+          <h3>Drag and drop file here</h3>
+          <h3>or</h3>
+          <label for="fileDropRef">Browse for file</label>
+        </div>
+        <div class="files-list">
+          <div class="single-file" *ngFor="let file of files1; let i = index">
+            <div class="file-icon" style="width: 50px">
+              <!-- image icon here-->
+              <mat-icon>image</mat-icon>
+            </div>
+            <div class="info">
+              <h4 class="name">
+                {{ file?.name }}
+              </h4>
+              <!-- <p class="size">
+                 {{ formatBytes(file?.size) }}
+               </p> -->
+              <!-- <app-progress [progress]="file?.progress"></app-progress> -->
+            </div>
+  
+            <div class="delete" (click)="deleteFile1(i)">
+              <mat-icon>delete</mat-icon>
+            </div>
+          </div>
+        </div>
+        </div>
+       
+        <!-- End of file upload code --><br>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b: <mat-checkbox color="primary"
         [disabled]="checkboxValue_4">ETS on file with the court.</mat-checkbox><br><br>
 
-      <!-- File upload code -->
-
-      <p style="text-align: center;font-weight: 600;">Please upload file here</p>
-
-      <div class="container_file" appDnd (fileDropped)="onFileDropped1($event)">
-        <input class="input_file" type="file" #fileDropRef id="fileDropRef" multiple
-          (change)="fileBrowseHandler1($event.target.files)" />
-        <!-- upload icon here -->
-        <mat-icon>cloud_upload</mat-icon>
-        <h3>Drag and drop file here</h3>
-        <h3>or</h3>
-        <label for="fileDropRef">Browse for file</label>
-      </div>
-      <div class="files-list">
-        <div class="single-file" *ngFor="let file of files1; let i = index">
-          <div class="file-icon" style="width: 50px">
-            <!-- image icon here-->
-            <mat-icon>image</mat-icon>
-          </div>
-          <div class="info">
-            <h4 class="name">
-              {{ file?.name }}
-            </h4>
-            <!-- <p class="size">
-               {{ formatBytes(file?.size) }}
-             </p> -->
-            <!-- <app-progress [progress]="file?.progress"></app-progress> -->
-          </div>
-
-          <div class="delete" (click)="deleteFile1(i)">
-            <mat-icon>delete</mat-icon>
-          </div>
-        </div>
-      </div>
-
-      <!-- End of file upload code --><br><br>
+<br>
 
       5: <mat-checkbox color="primary" formControlName="isETSCompletedWithinFiveAndSevenYears"
         (change)="onChange_5($event, '')">ETS completed within five (5) and seven (7) years prior to date of alleged
@@ -533,6 +539,12 @@
         <mat-label>Signature</mat-label>
         <input matInput formControlName="officerSignature">
       </mat-form-field>
+
+      <div *ngIf="showMsg3">
+   
+        <p style="color: red;">Please Select the image to Submit</p> 
+  
+    </div>
       <div align="end">
         <button mat-raised-button>Submit</button>
       </div>
